@@ -1,0 +1,90 @@
+# Compiled source
+*.class
+
+# Log files
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+
+# Compiled classes
+/bin/
+/target/
+/out/
+
+# Maven specific files
+.mvn/
+**/mvnw*
+**/mvnw.cmd
+
+# Gradle specific files
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# IDEA specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse specific files
+.project
+.classpath
+.settings/
+target/
+
+# VSCode specific files
+.vscode/
+
+# Operating system files
+Thumbs.db
+.DS_Store
+
+# Logs and temp directories
+logs/
+*.log
+*.tmp
+*.bak
+hs_err_pid*
+
+# Test outputs
+*.out
+*.diff
+*.patch
+
+# Spring Boot specific
+spring.log
+
+# Lombok generated
+*.lombok.config
+
+# Application properties
+*.properties
+*.yml
+*.yaml
+
+# Node and NPM files (if applicable)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker specific files
+**/docker-compose.override.yml
+**/.dockerignore
+
+# Package manager specific
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# Sensitive or environment-specific files
+.env
+.env.local
+.env.*.local
