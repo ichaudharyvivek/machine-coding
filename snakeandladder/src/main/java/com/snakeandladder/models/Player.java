@@ -63,6 +63,6 @@ public class Player {
      */
     @Override
     public String toString() {
-        return String.format("Player{name='%s', position=%d}", name, position);
+        return String.format("Player[name= '%s', position= %d]", name, position);
     }
 }
