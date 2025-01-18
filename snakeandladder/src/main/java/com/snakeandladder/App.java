@@ -15,8 +15,8 @@ public class App
 
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
         App.setTestLombok(true);
+        System.out.println( "Hello World!" );
         System.out.println(App.isTestLombok());
     }
 }
