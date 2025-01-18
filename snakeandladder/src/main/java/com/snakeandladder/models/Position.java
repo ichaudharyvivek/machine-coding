@@ -13,6 +13,9 @@ public class Position {
 
     /**
      * Constructs a Position object with the given position value.
+     * We use position class to make App dynamic. In future, if we need to introduce
+     * new types of dimentions (e.g. row and column) then only this class needs to
+     * be updated. All other class are only concered this abstraction.
      * 
      * @param position The position value, must be >= 0.
      * @throws IllegalArgumentException if the position is less than or equal to 0.
