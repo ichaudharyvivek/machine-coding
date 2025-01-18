@@ -151,4 +151,3 @@ Sagar wins the game
 
 ## Submission
 Try to solve it within 1.5 hours.
-Please go through the submission process here.
