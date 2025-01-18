@@ -16,14 +16,13 @@ public class Snake extends Entity {
     }
 
     @Override
-    public boolean isValid() {
-        // TODO: Work on validation and check for 0th and boards last positon
-        // if (!(start.getPosition() > 0 && end.getPosition() > 0) &&
-        // (start.getPosition() < 100
-        // && end.getPosition() < 100)) {
+    public boolean isValid(int size) {
+        if ((start.getPosition() > 0 && end.getPosition() > 0) &&
+                (start.getPosition() < size && end.getPosition() < size)) {
+            return true;
+        }
 
-        // }
-        return true;
+        return false;
     }
 
 }

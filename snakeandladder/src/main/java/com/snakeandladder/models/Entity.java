@@ -33,5 +33,5 @@ public abstract class Entity {
      * 
      * @return true if the entity meets the validity conditions, false otherwise
      */
-    public abstract boolean isValid();
+    public abstract boolean isValid(int size);
 }

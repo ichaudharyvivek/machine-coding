@@ -65,7 +65,7 @@ public class Board {
      *                                  existing entity.
      */
     public void addSnake(Snake snake) {
-        if (!snake.isValid()) {
+        if (!snake.isValid(size)) {
             throw new IllegalArgumentException(
                     "Invalid snake: Start should be greater than end and within board limits.");
         }
@@ -85,7 +85,7 @@ public class Board {
      *                                  existing entity.
      */
     public void addLadder(Ladder ladder) {
-        if (!ladder.isValid()) {
+        if (!ladder.isValid(size)) {
             throw new IllegalArgumentException(
                     "Invalid ladder: End should be greater than start and within board limits.");
         }
