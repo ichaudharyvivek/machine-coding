@@ -12,6 +12,7 @@ public class Player {
 
     @Getter
     private final String name;
+
     @Getter
     private Position position;
 
