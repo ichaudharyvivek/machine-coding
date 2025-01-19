@@ -20,7 +20,7 @@ public abstract class Entity {
      * @throws IllegalArgumentException if start and end are not positive integers
      */
     public Entity(Position start, Position end) {
-        if (!(start.getPosition() > 0 && end.getPosition() > 0)) {
+        if (start.getPosition() < 0 || end.getPosition() < 0) {
             throw new IllegalArgumentException("Start and end positions must be positive.");
         }
 
