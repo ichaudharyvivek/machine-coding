@@ -29,6 +29,22 @@ public abstract class Entity {
     }
 
     /**
+     * Checks if the player has encountered this entity and returns the new
+     * position.
+     *
+     * @param current The player's current position.
+     * @return The new position if the player encounters the entity; otherwise,
+     *         returns the current position.
+     */
+    public Position checkEntity(Position current) {
+        if (current.getPosition() == start.getPosition()) {
+            return end;
+        }
+        
+        return current;
+    }
+
+    /**
      * Custom check entity for its validity
      * 
      * @return true if the entity meets the validity conditions, false otherwise

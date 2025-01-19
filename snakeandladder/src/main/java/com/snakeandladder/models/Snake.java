@@ -13,12 +13,14 @@ public class Snake extends Entity {
      */
     public Snake(Position start, Position end) {
         super(start, end);
+        if (start.getPosition() <= end.getPosition()) {
+            throw new IllegalArgumentException("Snake's head must be greater than its tail.");
+        }
     }
 
     @Override
     public boolean isValid(int size) {
-        return start.getPosition() > 0 && end.getPosition() > 0 &&
-                start.getPosition() < size && end.getPosition() < size &&
+        return start.getPosition() < size && end.getPosition() < size &&
                 start.getPosition() != end.getPosition();
     }
 

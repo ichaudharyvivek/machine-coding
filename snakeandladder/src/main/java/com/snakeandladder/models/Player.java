@@ -12,6 +12,7 @@ public class Player {
 
     @Getter
     private final String name;
+    @Getter
     private Position position;
 
     /**
@@ -27,7 +28,7 @@ public class Player {
         }
 
         this.name = name.trim();
-        position.setPosition(DEFAULT_START_POSITION);
+        this.position = new Position(DEFAULT_START_POSITION);
     }
 
     /**

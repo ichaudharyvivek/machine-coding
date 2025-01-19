@@ -13,12 +13,14 @@ public class Ladder extends Entity {
      */
     public Ladder(Position start, Position end) {
         super(start, end);
+        if (start.getPosition() >= end.getPosition()) {
+            throw new IllegalArgumentException("Ladder's start must be less than its end.");
+        }
     }
 
     @Override
     public boolean isValid(int size) {
-        return start.getPosition() > 0 && end.getPosition() > 0 &&
-                start.getPosition() < size && end.getPosition() < size &&
+        return start.getPosition() < size && end.getPosition() < size &&
                 start.getPosition() != end.getPosition();
     }
 }
