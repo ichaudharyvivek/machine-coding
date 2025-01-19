@@ -15,12 +15,24 @@ public class GameService {
     private final Board board;
     private final Queue<Player> turnQueue;
 
+    /**
+     * Constructs a GameService instance.
+     *
+     * @param board   The game board containing snakes, ladders, and the board size.
+     * @param players The list of players participating in the game.
+     * @param dice    The dice object to be used for rolling.
+     */
     public GameService(Board board, List<Player> players, Dice dice) {
         this.dice = dice;
         this.board = board;
         this.turnQueue = new LinkedList<>(players);
     }
 
+    /**
+     * Starts the game loop, allowing players to take turns rolling the dice,
+     * moving their pieces, and encountering snakes or ladders.
+     * The game ends when a player reaches the final position on the board.
+     */
     public void startGame() {
         while (true) {
             Player currentPlayer = turnQueue.poll();
@@ -33,16 +45,17 @@ public class GameService {
                 continue;
             }
 
+            // Check encounter with game's components
             for (Snake snake : board.getSnakes()) {
-                newPosition = snake.checkEntity(newPosition);
+                newPosition = snake.checkEncounter(newPosition);
             }
 
             for (Ladder ladder : board.getLadders()) {
-                newPosition = ladder.checkEntity(newPosition);
+                newPosition = ladder.checkEncounter(newPosition);
             }
 
-            System.out.printf("%s rolled a %d and moved from %d to %d%n",
-                    currentPlayer.getName(), diceRoll, currentPosition.getPosition(), newPosition.getPosition());
+            System.out.printf("%s rolled a %d and moved from %d to %d%n", currentPlayer.getName(), diceRoll,
+                    currentPosition.getPosition(), newPosition.getPosition());
 
             currentPlayer.setPosition(newPosition.getPosition());
             if (newPosition.getPosition() == board.getSize()) {

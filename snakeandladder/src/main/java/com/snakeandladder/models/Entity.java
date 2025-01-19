@@ -36,11 +36,11 @@ public abstract class Entity {
      * @return The new position if the player encounters the entity; otherwise,
      *         returns the current position.
      */
-    public Position checkEntity(Position current) {
+    public Position checkEncounter(Position current) {
         if (current.getPosition() == start.getPosition()) {
             return end;
         }
-        
+
         return current;
     }
 

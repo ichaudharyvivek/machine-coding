@@ -38,6 +38,7 @@ public class Position {
         if (position < 0) {
             throw new IllegalArgumentException("Position must be greater than or equal to 0.");
         }
+
         this.position = position;
     }
 
