@@ -3,9 +3,8 @@ package com.snakeandladder.models;
 import lombok.Getter;
 
 /**
- * Represents a player in the Snake and Ladder game.
- * Each player has a name, a current position on the board, and can move based
- * on dice rolls.
+ * Represents the player in the Snake and Ladder game.
+ * Each player has a name and a current position on the board.
  */
 public class Player {
     private static final int DEFAULT_START_POSITION = 0;
@@ -13,9 +12,7 @@ public class Player {
 
     @Getter
     private final String name;
-
-    @Getter
-    private int position;
+    private Position position;
 
     /**
      * Creates a new player with the given name and initializes their position to
@@ -30,7 +27,7 @@ public class Player {
         }
 
         this.name = name.trim();
-        this.position = DEFAULT_START_POSITION;
+        position.setPosition(DEFAULT_START_POSITION);
     }
 
     /**
@@ -40,19 +37,19 @@ public class Player {
      * @throws IllegalArgumentException if the position is less than the minimum
      *                                  allowed position
      */
-    public void setPosition(int position) {
-        if (position < MINIMUM_POSITION) {
+    public void setPosition(int newPosition) {
+        if (newPosition < MINIMUM_POSITION) {
             throw new IllegalArgumentException("Position cannot be less than " + MINIMUM_POSITION);
         }
 
-        this.position = position;
+        position.setPosition(newPosition);
     }
 
     /**
      * Resets the player's position to the default start position.
      */
     public void resetPosition() {
-        this.position = DEFAULT_START_POSITION;
+        position.setPosition(DEFAULT_START_POSITION);
     }
 
     /**
@@ -63,6 +60,6 @@ public class Player {
      */
     @Override
     public String toString() {
-        return String.format("Player[name= '%s', position= %d]", name, position);
+        return String.format("Player[name= '%s', position= %d]", name, position.getPosition());
     }
 }

@@ -17,11 +17,8 @@ public class Ladder extends Entity {
 
     @Override
     public boolean isValid(int size) {
-        if ((start.getPosition() > 0 && end.getPosition() > 0) &&
-                (start.getPosition() < size && end.getPosition() < size)) {
-            return true;
-        }
-
-        return false;
+        return start.getPosition() > 0 && end.getPosition() > 0 &&
+                start.getPosition() < size && end.getPosition() < size &&
+                start.getPosition() != end.getPosition();
     }
 }

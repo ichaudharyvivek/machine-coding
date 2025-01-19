@@ -18,7 +18,7 @@ public class Position {
      * be updated. All other class are only concered with this abstraction.
      * 
      * @param position The position value, must be >= 0.
-     * @throws IllegalArgumentException if the position is less than or equal to 0.
+     * @throws IllegalArgumentException if the position is < 0.
      */
     public Position(int position) {
         if (position < 0) {
@@ -31,8 +31,8 @@ public class Position {
     /**
      * Sets a new position on the board.
      * 
-     * @param position The new position value, must be greater than 0.
-     * @throws IllegalArgumentException if the position is less than or equal to 0.
+     * @param position The new position value, must be >= 0.
+     * @throws IllegalArgumentException if the position is < 0.
      */
     public void setPosition(int position) {
         if (position < 0) {
