@@ -65,10 +65,17 @@ public class GameLogger {
     }
 
     /**
-     * Log game draw
+     * Logs game draw
      */
     public void printGameDraw() {
         System.out.println("Game Draw.");
+    }
+
+    /**
+     * Logs prompt to ask coordinates
+     */
+    public void printPrompt(String name) {
+        System.out.printf("Please enter coordinates - %s: ", name);
     }
 
 }

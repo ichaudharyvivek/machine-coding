@@ -54,7 +54,7 @@ public class GameService {
                 Player currentPlayer = turnDeque.pollFirst();
                 Piece currentPlayerPiece = currentPlayer.getPlayerPiece();
 
-                System.out.print("Please enter coordinates - " + currentPlayer.getPlayerName() + ": ");
+                logger.printPrompt(currentPlayer.getPlayerName());
                 String input = sc.nextLine().trim();
                 try {
 
