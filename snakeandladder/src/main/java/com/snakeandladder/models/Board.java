@@ -10,9 +10,9 @@ import java.util.List;
  * The board is a singleton to ensure there is only one instance in the game.
  */
 public class Board {
-    private static final int DEFAULT_SIZE = 100;
-    private static final int MIN_SIZE = 10;
     private static Board instance;
+    private static final int MIN_SIZE = 10;
+    private static final int DEFAULT_SIZE = 100;
 
     @Getter
     private final int size;
