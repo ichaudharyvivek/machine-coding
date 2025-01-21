@@ -19,8 +19,15 @@ public class Board {
 
     @Getter
     private final int size;
-    
-    @Getter
+
+    /**
+     * Note to self:
+     * Avoid using @Getter to return arrays directly, as it allows users to
+     * access and modify the returned array, potentially breaking encapsulation.
+     * Instead use a custom getter method which streams or return a read-only copy
+     * of the array.
+     * 
+     */
     private final Piece[][] board;
 
     /**

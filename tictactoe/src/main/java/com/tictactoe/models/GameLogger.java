@@ -40,11 +40,9 @@ public class GameLogger {
      */
     public void printBoard() {
         int size = board.getSize();
-        Piece[][] pieceOnBoard = board.getBoard();
-
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                char piece = pieceOnBoard[i][j].getSymbol();
+                char piece = board.getBoardPiece(i, j).getSymbol();
                 System.out.print(piece + " ");
             }
 
