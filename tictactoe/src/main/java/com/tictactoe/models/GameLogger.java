@@ -67,10 +67,10 @@ public class GameLogger {
     }
 
     /**
-     * Log game terminated
+     * Log game draw
      */
-    public void printGameTerminated() {
-        System.out.println("Game terminated.");
+    public void printGameDraw() {
+        System.out.println("Game Draw.");
     }
 
 }

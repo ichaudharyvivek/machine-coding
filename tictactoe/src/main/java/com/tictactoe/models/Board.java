@@ -19,7 +19,7 @@ public class Board {
 
     @Getter
     private final int size;
-
+    
     @Getter
     private final Piece[][] board;
 
@@ -105,6 +105,23 @@ public class Board {
         }
 
         board[r][c] = piece;
+    }
+
+    /**
+     * Checks if the board is full.
+     *
+     * @return boolean value, true if board is full, else false
+     */
+    public boolean isFull() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j].getPieceType() == PieceType.SYMBOL_NONE) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**

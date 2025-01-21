@@ -30,12 +30,11 @@ public class App {
             players.add(player);
         }
 
-        sc.close();
-
         // Initialize board and the start game
         Board board = Board.getInstance();
         GameService gameService = new GameService(board, players);
         gameService.startGameInteractive();
+        sc.close();
 
     }
 
