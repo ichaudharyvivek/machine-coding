@@ -82,11 +82,11 @@ public class GameLogger {
      * Logs invalid input
      */
     public void printInvalidInput() {
-        System.out.println("Invalid input. Please enter coordinates as- <row>");
+        System.out.println("Invalid input. Please enter coordinates as- <row> <col>");
     }
 
     public void printError(Exception e) {
-        System.out.println("Error occured: \n" + e.getMessage());
+        System.out.println("Error: " + e.getMessage());
     }
 
 }
