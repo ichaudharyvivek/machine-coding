@@ -1,9 +1,5 @@
 package com.tictactoe.models;
 
-import com.tictactoe.models.piece_types.PieceType;
-import com.tictactoe.models.piece_types.PieceO;
-import com.tictactoe.models.piece_types.PieceX;
-
 import lombok.Getter;
 
 /**
@@ -12,9 +8,9 @@ import lombok.Getter;
  */
 public class Player {
     @Getter
-    private String playerName;
+    private final String playerName;
     @Getter
-    private Piece playerPiece;
+    private final PieceType playerPiece;
 
     /**
      * Creates a new player with the given name and initializes their position to
@@ -30,17 +26,7 @@ public class Player {
         }
 
         this.playerName = name.trim();
-        char symbol = pieceType.getSymbol();
-        switch (symbol) {
-            case 'X':
-                this.playerPiece = new PieceX(pieceType);
-                break;
-            case 'O':
-                this.playerPiece = new PieceO(pieceType);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid piece type.");
-        }
+        this.playerPiece = pieceType;
     }
 
     /**

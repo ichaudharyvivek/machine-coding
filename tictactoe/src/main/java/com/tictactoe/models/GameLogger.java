@@ -11,7 +11,7 @@ public class GameLogger {
 
     /**
      * Private constructor to prevent direct instantiation.
-     * The Logger instance is initialized with a Board.
+     * The Logger instance is initialized with a {@link Board}.
      *
      * @param board The Board to associate with this Logger instance.
      */
@@ -20,7 +20,7 @@ public class GameLogger {
     }
 
     /**
-     * Returns the singleton instance of Logger.
+     * Returns the singleton instance of {@link GameLogger}.
      * If the instance is not yet created, it initializes it.
      *
      * @param board The Board to associate with the Logger (used only for the first
@@ -42,7 +42,7 @@ public class GameLogger {
         int size = board.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                char piece = board.getBoardPiece(i, j).getSymbol();
+                char piece = board.getPieceAt(i, j).getSymbol();
                 System.out.print(piece + " ");
             }
 
@@ -54,14 +54,14 @@ public class GameLogger {
      * Logs invalid move
      */
     public void printInvalidMove() {
-        System.out.println("Invalid Move");
+        System.out.println("Invalid Move.");
     }
 
     /**
      * Logs winner
      */
     public void printWinner(Player player) {
-        System.out.printf("%s won the game%n", player.getPlayerName());
+        System.out.printf("%s won the game.%n", player.getPlayerName());
     }
 
     /**
@@ -76,6 +76,17 @@ public class GameLogger {
      */
     public void printPrompt(String name) {
         System.out.printf("Please enter coordinates - %s: ", name);
+    }
+
+    /**
+     * Logs invalid input
+     */
+    public void printInvalidInput() {
+        System.out.println("Invalid input. Please enter coordinates as- <row>");
+    }
+
+    public void printError(Exception e) {
+        System.out.println("Error occured: \n" + e.getMessage());
     }
 
 }
