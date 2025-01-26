@@ -44,6 +44,7 @@ public class GameStateManagerService {
             players.add(player);
         }
 
+        // This is closed in GameService when the app terminates
         // sc.close();
         return new GameService(board, players, strategies);
     }

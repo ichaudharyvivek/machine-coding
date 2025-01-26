@@ -101,7 +101,7 @@ public class Board {
      * @param c         The column.
      * @param pieceType The piece type (X, O, etc.).
      * @throws InvalidMoveException     If the move is invalid.
-     * @throws IllegalArgumentException if the row or column is out of bounds.
+     * @throws IllegalArgumentException If the row or column is out of bounds.
      */
     public void setPieceAt(int r, int c, PieceType pieceType) throws InvalidMoveException {
         if (r < 0 || c < 0 || r >= size || c >= size) {
