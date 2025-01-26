@@ -2,8 +2,7 @@ package com.tictactoe.models;
 
 import java.util.Arrays;
 
-import com.tictactoe.models.piece_types.PieceNone;
-import com.tictactoe.models.piece_types.PieceType;
+import com.tictactoe.exceptions.InvalidMoveException;
 
 import lombok.Getter;
 
@@ -28,12 +27,12 @@ public class Board {
      * of the array.
      * 
      */
-    private final Piece[][] board;
+    private final PieceType[][] board;
 
     /**
      * Private constructor to prevent direct instantiation.
-     * Initializes the board with the specified size.
-     * Each cell is set to a Piece of type SYMBOL_NONE.
+     * Initializes the {@code Board} with the specified size.
+     * Each cell is set to a {@link PieceType} enum of {@code SYMBOL_NONE}.
      *
      * @param size The size of the board (e.g., 3 for a 3x3 board).
      * @throws IllegalArgumentException if the size is less than the minimum size.
@@ -44,10 +43,10 @@ public class Board {
         }
 
         this.size = size;
-        this.board = new Piece[size][size];
+        this.board = new PieceType[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                board[i][j] = new PieceNone(PieceType.SYMBOL_NONE);
+                board[i][j] = PieceType.SYMBOL_NONE;
             }
         }
     }
@@ -57,7 +56,7 @@ public class Board {
      * If the instance does not exist, it creates a new instance with the default
      * size.
      *
-     * @return The singleton instance of the Board.
+     * @return The singleton instance of the {@link Board}.
      */
     public static Board getInstance() {
         return getInstance(DEFAULT_SIZE);
@@ -68,50 +67,69 @@ public class Board {
      * If the instance does not exist, it creates a new instance with the specified
      * size.
      *
-     * @param size The size of the board (e.g., 3 for a 3x3 board).
-     * @return The singleton instance of the Board.
-     * @throws IllegalArgumentException if the size is less than the minimum size.
+     * @param size The {@code size} of the board (e.g., 3 for a 3x3 board).
+     * @return The singleton instance of the {@link Board}.
      */
     public static Board getInstance(int size) {
         if (instance == null) {
             instance = new Board(size);
         }
+
         return instance;
     }
 
     /**
-     * Returns piece at [row][col]
+     * Returns piece at [row][col].
      * 
-     * @param r The row
-     * @param c The column
-     * @return The Piece at [r][c]
-     * @throws IllegalArgumentException if the row or column is out of bounds
+     * @param r The row.
+     * @param c The column.
+     * @return The {@link PieceType} at [r][c].
+     * @throws IllegalArgumentException if the row or column is out of bounds.
      */
-    public Piece getBoardPiece(int r, int c) {
+    public PieceType getPieceAt(int r, int c) {
         if (r < 0 || c < 0 || r >= size || c >= size) {
             throw new IllegalArgumentException("Invalid row or column.");
         }
+
         return board[r][c];
     }
 
     /**
-     * Set's the board with piece at [row][col]
+     * Set the board with a piece at [row][col].
      * 
-     * @param r     The row
-     * @param c     The column
-     * @param piece The piece (X, O, etc.)
-     * @throws IllegalArgumentException if the row or column is out of bounds
+     * @param r         The row.
+     * @param c         The column.
+     * @param pieceType The piece type (X, O, etc.).
+     * @throws InvalidMoveException     If the move is invalid.
+     * @throws IllegalArgumentException if the row or column is out of bounds.
      */
-    public void setBoardPiece(int r, int c, Piece piece) {
+    public void setPieceAt(int r, int c, PieceType pieceType) throws InvalidMoveException {
         if (r < 0 || c < 0 || r >= size || c >= size) {
             throw new IllegalArgumentException("Invalid row or column.");
         }
 
-        if (board[r][c].getPieceType() != PieceType.SYMBOL_NONE) {
-            throw new IllegalArgumentException("Invalid row or column");
+        if (board[r][c] != PieceType.SYMBOL_NONE) {
+            throw new InvalidMoveException("Cell is already occupied.");
         }
 
-        board[r][c] = piece;
+        board[r][c] = pieceType;
+    }
+
+    /**
+     * Checks if the board is empty.
+     *
+     * @return {@code true} if board is empty, else returns {@code false}.
+     */
+    public boolean isEmpty() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] != PieceType.SYMBOL_NONE) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -122,7 +140,7 @@ public class Board {
     public boolean isFull() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (board[i][j].getPieceType() == PieceType.SYMBOL_NONE) {
+                if (board[i][j] == PieceType.SYMBOL_NONE) {
                     return false;
                 }
             }
@@ -133,9 +151,9 @@ public class Board {
 
     /**
      * Returns a string representation of the Board.
-     * This includes the board size and the current state of the board.
+     * This includes the board size and the current state of the {@link Board}.
      *
-     * @return A string representation of the Board.
+     * @return A string representation of the {@link Board}.
      */
     @Override
     public String toString() {

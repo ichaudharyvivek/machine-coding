@@ -1,13 +1,7 @@
 package com.tictactoe;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import com.tictactoe.models.Board;
-import com.tictactoe.models.Player;
-import com.tictactoe.models.piece_types.PieceType;
 import com.tictactoe.services.GameService;
+import com.tictactoe.services.GameStateManagerService;
 
 /**
  * Main class that handles the TicTacToe game execution.
@@ -15,45 +9,8 @@ import com.tictactoe.services.GameService;
  */
 public class App {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        List<Player> players = new ArrayList<>();
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine();
-            if (input.isEmpty())
-                break;
-
-            String[] parts = input.split(" ");
-            String name = parts[1];
-            PieceType symbol = getPieceTypeBySymbol(parts[0].charAt(0));
-            Player player = new Player(name, symbol);
-            players.add(player);
-        }
-
-        // Initialize board and the start game
-        Board board = Board.getInstance();
-        GameService gameService = new GameService(board, players);
+        GameStateManagerService manager = new GameStateManagerService();
+        GameService gameService = manager.initializeGame();
         gameService.startGameInteractive();
-        sc.close();
-
-    }
-
-    /**
-     * Maps the given character to the corresponding PieceType.
-     * 
-     * @param symbol The character representing the symbol ('X', 'O', etc.).
-     * @return The corresponding PieceType.
-     */
-    public static PieceType getPieceTypeBySymbol(char symbol) {
-        switch (symbol) {
-            case 'X':
-                return PieceType.SYMBOL_X;
-
-            case 'O':
-                return PieceType.SYMBOL_O;
-
-            default:
-                throw new IllegalArgumentException("Invalid Symbol.");
-        }
     }
 }
