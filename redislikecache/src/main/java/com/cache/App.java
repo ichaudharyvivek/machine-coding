@@ -1,7 +1,5 @@
 package com.cache;
 
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Hello world!
