@@ -15,7 +15,7 @@ public class DataTypeFactory {
     private final Map<Class<?>, Function<Object, Data>> registry = new HashMap<>();
 
     public DataTypeFactory() {
-        // Register primitive wrapper types
+        // Wrappers to create objects dynamically
         register(String.class, value -> new StringData((String) value));
         register(Boolean.class, value -> new BooleanData((boolean) value));
         register(Integer.class, value -> new IntegerData((int) value));
