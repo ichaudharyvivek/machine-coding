@@ -41,6 +41,7 @@ target/
 
 # VSCode specific files
 .vscode/
+!.vscode/settings.json
 
 # Operating system files
 Thumbs.db
