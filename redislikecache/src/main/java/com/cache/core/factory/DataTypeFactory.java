@@ -9,7 +9,7 @@ import com.cache.core.datatypes.Data;
 import com.cache.core.datatypes.DoubleData;
 import com.cache.core.datatypes.IntegerData;
 import com.cache.core.datatypes.StringData;
-import com.cache.exceptions.InvalidDataError;
+import com.cache.exceptions.InvalidDataException;
 
 public class DataTypeFactory {
     private final Map<Class<?>, Function<Object, Data<?>>> registry = new HashMap<>();
@@ -27,14 +27,14 @@ public class DataTypeFactory {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> Data<T> ofValue(T value) throws InvalidDataError {
+    public <T> Data<T> ofValue(T value) throws InvalidDataException {
         if (value == null) {
-            throw new InvalidDataError("Cannot create Data from null value.");
+            throw new InvalidDataException("Cannot create Data from null value.");
         }
 
         Function<Object, Data<?>> creator = registry.get(value.getClass());
         if (creator == null) {
-            throw new InvalidDataError("Unsupported DataType: " + value.getClass().getSimpleName());
+            throw new InvalidDataException("Unsupported DataType: " + value.getClass().getSimpleName());
         }
 
         return (Data<T>) creator.apply(value);
