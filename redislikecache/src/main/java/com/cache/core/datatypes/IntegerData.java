@@ -1,6 +1,6 @@
 package com.cache.core.datatypes;
 
-public class IntegerData implements Data {
+public class IntegerData implements Data<Integer> {
     private final int value;
 
     public IntegerData(int value) {
@@ -8,7 +8,7 @@ public class IntegerData implements Data {
     }
 
     @Override
-    public Object getValue() {
+    public Integer getValue() {
         return value;
     };
 

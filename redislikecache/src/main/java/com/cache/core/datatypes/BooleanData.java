@@ -1,6 +1,6 @@
 package com.cache.core.datatypes;
 
-public class BooleanData implements Data {
+public class BooleanData implements Data<Boolean> {
     private final boolean value;
 
     public BooleanData(boolean value) {
@@ -8,7 +8,7 @@ public class BooleanData implements Data {
     }
 
     @Override
-    public Object getValue() {
+    public Boolean getValue() {
         return value;
     };
 

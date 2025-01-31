@@ -12,7 +12,7 @@ import com.cache.core.datatypes.StringData;
 import com.cache.exceptions.InvalidDataError;
 
 public class DataTypeFactory {
-    private final Map<Class<?>, Function<Object, Data>> registry = new HashMap<>();
+    private final Map<Class<?>, Function<Object, Data<?>>> registry = new HashMap<>();
 
     public DataTypeFactory() {
         // Wrappers to create objects dynamically
@@ -22,21 +22,22 @@ public class DataTypeFactory {
         register(Double.class, value -> new DoubleData((double) value));
     }
 
-    public void register(Class<?> type, Function<Object, Data> creator) {
+    public <T> void register(Class<?> type, Function<Object, Data<?>> creator) {
         registry.put(type, creator);
     }
 
-    public Data ofValue(Object value) throws InvalidDataError {
+    @SuppressWarnings("unchecked")
+    public <T> Data<T> ofValue(T value) throws InvalidDataError {
         if (value == null) {
             throw new InvalidDataError("Cannot create Data from null value.");
         }
 
-        Function<Object, Data> creator = registry.get(value.getClass());
+        Function<Object, Data<?>> creator = registry.get(value.getClass());
         if (creator == null) {
             throw new InvalidDataError("Unsupported DataType: " + value.getClass().getSimpleName());
         }
 
-        return creator.apply(value);
+        return (Data<T>) creator.apply(value);
     }
 
 }

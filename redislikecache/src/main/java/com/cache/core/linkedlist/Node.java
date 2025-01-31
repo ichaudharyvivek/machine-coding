@@ -18,7 +18,7 @@ public class Node {
     private Node prev;
 
     private final String key;
-    private final Map<String, Data> value;
+    private final Map<String, Data<?>> value;
 
     public Node() {
         this.next = null;
@@ -28,19 +28,19 @@ public class Node {
         this.value = new HashMap<>();
     }
 
-    public Node(String key, Map<String, Data> data) {
+    public Node(String key, Map<String, Data<?>> value) {
         this.next = null;
         this.prev = null;
 
         this.key = key;
-        this.value = data;
+        this.value = value;
     }
 
     public String getKey() {
         return key;
     }
 
-    public Map<String, Data> getValue() {
+    public Map<String, Data<?>> getValue() {
         return new HashMap<>(value);
     }
 

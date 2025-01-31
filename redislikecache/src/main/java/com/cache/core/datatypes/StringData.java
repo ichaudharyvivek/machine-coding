@@ -1,6 +1,6 @@
 package com.cache.core.datatypes;
 
-public class StringData implements Data {
+public class StringData implements Data<String> {
     private final String value;
 
     public StringData(String value) {
@@ -8,7 +8,7 @@ public class StringData implements Data {
     }
 
     @Override
-    public Object getValue() {
+    public String getValue() {
         return value;
     };
 

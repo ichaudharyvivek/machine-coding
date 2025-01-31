@@ -16,8 +16,8 @@ public class DoubleLinkedList {
         this.last.setPrev(first);
     }
 
-    public void insert(String key, Map<String, Data> data) {
-        Node newNode = new Node(key, data);
+    public void insert(String key, Map<String, Data<?>> value) {
+        Node newNode = new Node(key, value);
         Node q = first.getNext();
 
         newNode.setNext(q);

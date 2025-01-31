@@ -1,6 +1,6 @@
 package com.cache.core.datatypes;
 
-public class DoubleData implements Data {
+public class DoubleData implements Data<Double> {
     private final double value;
 
     public DoubleData(double value) {
@@ -8,7 +8,7 @@ public class DoubleData implements Data {
     }
 
     @Override
-    public Object getValue() {
+    public Double getValue() {
         return value;
     };
 
