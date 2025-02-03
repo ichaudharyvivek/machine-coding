@@ -1,6 +1,7 @@
 package com.cache.cli;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -55,6 +56,9 @@ public class CLIProcessor {
             case "delete":
                 processDelete(commands);
                 break;
+            case "search":
+                processSearch(commands);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid input type.");
         }
@@ -105,6 +109,18 @@ public class CLIProcessor {
         String namespace = commands[1];
         cache.delete(namespace);
         System.out.println("Deleted");
+    }
+
+    private void processSearch(String[] commands) throws InvalidDataException {
+        if (commands.length < 2) {
+            throw new IllegalArgumentException("Insufficient number of inputs.");
+        }
+
+        String key = commands[1];
+        Object value = parseValue(commands[2]);
+        Map<String, Object> valueMap = Map.of(key, value);
+        List<String> foundKey = cache.search(valueMap);
+        System.out.println(foundKey.toString());
     }
 
     private Object parseValue(String value) throws InvalidDataException {
