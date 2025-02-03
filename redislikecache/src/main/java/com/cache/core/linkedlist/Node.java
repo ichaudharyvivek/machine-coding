@@ -1,47 +1,34 @@
 package com.cache.core.linkedlist;
 
-import java.util.Map;
-import java.util.HashMap;
-
-import com.cache.core.datatypes.Data;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class Node {
+public class Node<K> {
     @Getter
     @Setter
-    private Node next;
+    private Node<K> next;
 
     @Getter
     @Setter
-    private Node prev;
+    private Node<K> prev;
 
-    private final String key;
-    private final Map<String, Data<?>> value;
+    private final K key;
 
     public Node() {
         this.next = null;
         this.prev = null;
-
-        this.key = "";
-        this.value = new HashMap<>();
+        this.key = null;
     }
 
-    public Node(String key, Map<String, Data<?>> value) {
+    public Node(K key) {
         this.next = null;
         this.prev = null;
 
         this.key = key;
-        this.value = value;
     }
 
-    public String getKey() {
+    public K getKey() {
         return key;
-    }
-
-    public Map<String, Data<?>> getValue() {
-        return new HashMap<>(value);
     }
 
 }

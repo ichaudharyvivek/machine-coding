@@ -1,41 +1,37 @@
 package com.cache.core.linkedlist;
 
-import java.util.Map;
-
-import com.cache.core.datatypes.Data;
-
-public class DoubleLinkedList {
-    private Node first;
-    private Node last;
+public class DoubleLinkedList<K> {
+    private Node<K> first;
+    private Node<K> last;
 
     public DoubleLinkedList() {
-        this.first = new Node();
-        this.last = new Node();
+        this.first = new Node<K>();
+        this.last = new Node<K>();
 
         this.first.setNext(last);
         this.last.setPrev(first);
     }
 
-    public void insert(String key, Map<String, Data<?>> value) {
-        Node newNode = new Node(key, value);
-        Node q = first.getNext();
+    public void insert(Node<K> node) {
+        Node<K> q = first.getNext();
 
-        newNode.setNext(q);
-        newNode.setPrev(first);
-        first.setNext(newNode);
-        q.setPrev(newNode);
+        node.setNext(q);
+        node.setPrev(first);
+
+        first.setNext(node);
+        q.setPrev(node);
     }
 
-    public void remove(Node node) {
-        Node p = node.getPrev();
-        Node q = node.getNext();
+    public void remove(Node<K> node) {
+        Node<K> p = node.getPrev();
+        Node<K> q = node.getNext();
 
         p.setNext(q);
         q.setPrev(p);
     }
 
-    public Node removeLast() {
-        Node removedNode = last.getPrev();
+    public Node<K> removeLast() {
+        Node<K> removedNode = last.getPrev();
         remove(removedNode);
         return removedNode;
     }
