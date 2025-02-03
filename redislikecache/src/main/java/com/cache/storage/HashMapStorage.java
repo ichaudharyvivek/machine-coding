@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.cache.exceptions.NotFoundException;
 
@@ -35,16 +36,16 @@ public class HashMapStorage<K, V> implements Storage<K, V> {
     }
 
     @Override
-    public V erase(K key) throws NotFoundException {
+    public void delete(K key) throws NotFoundException {
         if (key == null) {
             throw new IllegalArgumentException("Cannot 'erase' - 'key' provided is null.");
         }
 
         if (!cache.containsKey(key)) {
-            throw new NotFoundException(String.format("Cannot 'erase' - Key '%s' does not exists.", key));
+            throw new NotFoundException(String.format("Cannot 'delete' - Key '%s' does not exists.", key));
         }
 
-        return this.get(key);
+        cache.remove(key);
     }
 
     @Override
@@ -57,13 +58,27 @@ public class HashMapStorage<K, V> implements Storage<K, V> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<K> search(V value) {
-        if (value == null) {
-            throw new IllegalArgumentException("Value not provided.");
+        List<K> keyList = new ArrayList<>();
+
+        for (Map.Entry<K, V> entry : cache.entrySet()) {
+            K key = (K) entry.getKey();
+            V attributeMap = (V) entry.getValue();
+
+            for (Map.Entry<String, Object> searchEntry : ((Map<String, Object>) value).entrySet()) {
+                String searchKey = searchEntry.getKey();
+                Object searchObj = searchEntry.getValue();
+
+                if (((Map<String, Object>) attributeMap).containsKey(searchKey)
+                        && Objects.equals(searchObj, ((Map<String, Object>) attributeMap).get(searchKey))) {
+                    keyList.add(key);
+                    break;
+                }
+            }
         }
 
-        // TODO: Implement search
-        return new ArrayList<>();
+        return keyList;
     }
 
 }

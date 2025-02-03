@@ -52,6 +52,9 @@ public class CLIProcessor {
             case "get":
                 processGet(commands);
                 break;
+            case "delete":
+                processDelete(commands);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid input type.");
         }
@@ -92,6 +95,16 @@ public class CLIProcessor {
 
         cache.put(namespace, attributeMap);
         System.out.println("Success");
+    }
+
+    private void processDelete(String[] commands) throws NotFoundException {
+        if (commands.length < 2) {
+            throw new IllegalArgumentException("Insufficient number of inputs.");
+        }
+
+        String namespace = commands[1];
+        cache.delete(namespace);
+        System.out.println("Deleted");
     }
 
     private Object parseValue(String value) throws InvalidDataException {

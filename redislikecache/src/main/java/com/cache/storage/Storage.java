@@ -9,7 +9,7 @@ public interface Storage<K, V> {
 
     public void put(K key, V value);
 
-    public V erase(K key) throws NotFoundException;
+    public void delete(K key) throws NotFoundException;
 
     public List<K> keys();
 

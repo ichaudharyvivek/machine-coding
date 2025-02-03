@@ -37,4 +37,12 @@ public class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
         lookup.remove(removed.getKey());
         return removed.getKey();
     }
+
+    @Override
+    public K evict(K key) {
+        Node<K> toRemoveNode = lookup.get(key);
+        dll.remove(toRemoveNode);
+        lookup.remove(key);
+        return key;
+    }
 }

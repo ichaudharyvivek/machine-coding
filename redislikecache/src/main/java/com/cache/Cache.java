@@ -1,5 +1,9 @@
 package com.cache;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.cache.exceptions.NotFoundException;
 import com.cache.policy.EvictionPolicy;
 import com.cache.storage.Storage;
@@ -35,4 +39,12 @@ public class Cache<K, V> {
         size++;
     }
 
+    public void delete(K key) throws NotFoundException {
+        storage.delete(key);
+        evictionPolicy.evict(key);
+    }
+
+    public List<K> search(V valueMap) {
+        return storage.search(valueMap);
+    }
 }
