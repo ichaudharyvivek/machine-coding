@@ -20,12 +20,7 @@ public class App {
         Cache<String, Map<String, Object>> cache = new Cache<>(capacity, evictionPolicy, storage);
 
         CLIProcessor processor = new CLIProcessor(cache);
-        try {
-            processor.begin();
+        processor.begin();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-        }
     }
 }
