@@ -41,6 +41,7 @@ public class CLIProcessor {
             }
         }
 
+        sc.close();
         return;
     }
 
@@ -119,8 +120,8 @@ public class CLIProcessor {
         String key = commands[1];
         Object value = parseValue(commands[2]);
         Map<String, Object> valueMap = Map.of(key, value);
-        List<String> foundKey = cache.search(valueMap);
-        System.out.println(foundKey.toString());
+        List<String> foundKeys = cache.search(valueMap);
+        System.out.println(foundKeys.toString());
     }
 
     private Object parseValue(String value) throws InvalidDataException {
