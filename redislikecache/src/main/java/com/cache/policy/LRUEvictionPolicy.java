@@ -27,22 +27,23 @@ public class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
             // Key does not exists - add the node
             Node<K> newNode = new Node<>(key);
             dll.insert(newNode);
-
+            lookup.put(key, newNode);
         }
     }
 
     @Override
-    public K evict() {
+    public Node<K> evict() {
         Node<K> removed = dll.removeLast();
         lookup.remove(removed.getKey());
-        return removed.getKey();
+        return removed;
     }
 
     @Override
-    public K evict(K key) {
+    public Node<K> evict(K key) {
         Node<K> toRemoveNode = lookup.get(key);
         dll.remove(toRemoveNode);
         lookup.remove(key);
-        return key;
+        return toRemoveNode;
     }
+    
 }

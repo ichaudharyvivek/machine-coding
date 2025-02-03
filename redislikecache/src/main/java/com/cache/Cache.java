@@ -2,6 +2,7 @@ package com.cache;
 
 import java.util.List;
 
+import com.cache.core.Node;
 import com.cache.exceptions.NotFoundException;
 import com.cache.policy.EvictionPolicy;
 import com.cache.storage.Storage;
@@ -24,11 +25,12 @@ public class Cache<K, V> {
         return found;
     }
 
-    public void put(K key, V value) {
+    public void put(K key, V value) throws NotFoundException {
         if (size >= capacity) {
             // Capacity reached, evict the least recently used key
             System.out.println(String.format("Capacity of '%d' reached, removing Least Recently Used...", capacity));
-            evictionPolicy.evict();
+            Node<K> removedNode = evictionPolicy.evict();
+            storage.delete(removedNode.getKey());
             size--;
         }
 
@@ -38,11 +40,16 @@ public class Cache<K, V> {
     }
 
     public void delete(K key) throws NotFoundException {
+        size--;
         storage.delete(key);
         evictionPolicy.evict(key);
     }
 
     public List<K> search(V valueMap) {
         return storage.search(valueMap);
+    }
+
+    public List<K> keys() {
+        return storage.keys();
     }
 }

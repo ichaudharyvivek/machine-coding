@@ -60,9 +60,24 @@ public class CLIProcessor {
             case "search":
                 processSearch(commands);
                 break;
+            case "keys":
+                processKeys(commands);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid input type.");
         }
+    }
+
+    private void processKeys(String[] commands) {
+        List<String> keysList = cache.keys();
+        for (int i = 0; i < keysList.size(); i++) {
+            System.out.print(keysList.get(i));
+            if (i != keysList.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+
+        System.out.println();
     }
 
     private void processGet(String[] commands) throws NotFoundException {
@@ -73,6 +88,7 @@ public class CLIProcessor {
         int[] index = { 0 };
         String namespace = commands[1];
         Map<String, Object> values = cache.get(namespace);
+
         values.forEach((key, value) -> {
             System.out.print(String.format("%s: %s", key, value));
             if (index[0] != values.size() - 1) {
@@ -83,7 +99,7 @@ public class CLIProcessor {
         System.out.println();
     }
 
-    private void processPut(String[] commands) throws InvalidDataException {
+    private void processPut(String[] commands) throws InvalidDataException, NotFoundException {
         String namespace = "";
         Map<String, Object> attributeMap = new HashMap<>();
 
@@ -121,7 +137,13 @@ public class CLIProcessor {
         Object value = parseValue(commands[2]);
         Map<String, Object> valueMap = Map.of(key, value);
         List<String> foundKeys = cache.search(valueMap);
-        System.out.println(foundKeys.toString());
+        for (int i = 0; i < foundKeys.size(); i++) {
+            System.out.print(foundKeys.get(i));
+            if (i != foundKeys.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
     }
 
     private Object parseValue(String value) throws InvalidDataException {

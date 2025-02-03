@@ -28,6 +28,10 @@ public class DoubleLinkedList<K> {
 
         p.setNext(q);
         q.setPrev(p);
+
+        // Clear the node's links to prevent accidental reuse
+        node.setNext(null);
+        node.setPrev(null);
     }
 
     public Node<K> removeLast() {
@@ -36,4 +40,7 @@ public class DoubleLinkedList<K> {
         return removedNode;
     }
 
+    public boolean isEmpty() {
+        return first.getNext() == last;
+    }
 }
