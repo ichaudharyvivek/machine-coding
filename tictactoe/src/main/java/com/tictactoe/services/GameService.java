@@ -12,6 +12,11 @@ import com.tictactoe.models.PieceType;
 import com.tictactoe.models.Player;
 import com.tictactoe.strategy.WinStrategy;
 
+/**
+ * A service class that manages the core game logic for a board game.
+ * This class handles player turns, move validation, win conditions, and game
+ * state management.
+ */
 public class GameService {
     private final Board board;
     private final GameLogger logger;
