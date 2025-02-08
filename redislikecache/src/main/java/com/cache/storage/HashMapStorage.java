@@ -8,6 +8,13 @@ import java.util.Objects;
 
 import com.cache.exceptions.NotFoundException;
 
+/**
+ * A storage implementation using hashmap to manage key-value pairs.
+ * Provides efficient retrieval, insertion, and deletion operations.
+ *
+ * @param <K> the type of keys maintained by this storage
+ * @param <V> the type of values stored in this storage
+ */
 public class HashMapStorage<K, V> implements Storage<K, V> {
     private Map<K, V> cache;
 

@@ -9,8 +9,7 @@ import com.cache.storage.HashMapStorage;
 import com.cache.storage.Storage;
 
 /**
- * Main application class that initializes and runs a cache system with a
- * Command Line Interface using.
+ * Main application class that initializes and runs the cache with CLI
  */
 public class App {
     public static void main(String[] args) {

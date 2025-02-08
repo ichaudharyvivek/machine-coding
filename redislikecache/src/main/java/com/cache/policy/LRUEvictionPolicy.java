@@ -6,6 +6,12 @@ import java.util.Map;
 import com.cache.core.DoubleLinkedList;
 import com.cache.core.Node;
 
+/**
+ * Implements the Least Recently Used (LRU) eviction policy using a
+ * doubly linked list and a hashmap for efficient access and eviction.
+ *
+ * @param <K> the type of keys used for eviction tracking
+ */
 public class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
     private DoubleLinkedList<K> dll;
     private Map<K, Node<K>> lookup;
@@ -45,5 +51,5 @@ public class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
         lookup.remove(key);
         return toRemoveNode;
     }
-    
+
 }

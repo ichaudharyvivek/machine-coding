@@ -9,13 +9,33 @@ import com.cache.Cache;
 import com.cache.exceptions.InvalidDataException;
 import com.cache.exceptions.NotFoundException;
 
+/**
+ * Command-line interface processor for cache operations.
+ * Supports operations: put, get, delete, search, and keys.
+ */
 public class CLIProcessor {
     private final Cache<String, Map<String, Object>> cache;
 
+    /**
+     * Constructs a CLIProcessor with the specified cache implementation.
+     * 
+     * @param cache The {@link Cache} instance to process operations on
+     */
     public CLIProcessor(Cache<String, Map<String, Object>> cache) {
         this.cache = cache;
     }
 
+    /**
+     * Starts the CLI processor and handles user input until exit command.
+     * 
+     * Supported commands:
+     * put <namespace> <key1> <value1> [<key2> <value2> ...] - Store key-value pairs
+     * get <namespace> - Retrieve all values for a namespace
+     * delete <namespace> - Remove a namespace
+     * search <key> <value> - Find namespaces with matching key-value
+     * keys - List all namespaces
+     * exit - Terminate the program
+     */
     public void begin() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -45,6 +65,14 @@ public class CLIProcessor {
         return;
     }
 
+    /**
+     * Processes the put command to store key-value pairs in the specified
+     * namespace.
+     * 
+     * @param commands Array containing namespace and key-value pairs
+     * @throws InvalidDataException If value type is invalid
+     * @throws NotFoundException    If namespace not found for updates
+     */
     private void process(String[] commands) throws NotFoundException, InvalidDataException {
         String cacheCommand = commands[0].toLowerCase();
         switch (cacheCommand) {
