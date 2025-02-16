@@ -35,7 +35,7 @@ public class UrlShortnerServices {
         return baseUrl + "/" + alias;
     }
 
-    public String longUrl(String alias) {
+    public String getLongUrl(String alias) {
         ShortUrl shortUrl = urlStorage.getOrDefault(alias, null);
         if (shortUrl == null) {
             return null;
@@ -44,17 +44,15 @@ public class UrlShortnerServices {
         return shortUrl.getLongURL();
     }
 
-    public void setAnalytics(String alias) {
+    public boolean setAnalytics(String alias) {
         ShortUrl shortUrl = urlStorage.getOrDefault(alias, null);
         if (shortUrl == null) {
-            return;
+            return false;
         }
 
-        int accessCount = shortUrl.getAccessCount();
-        shortUrl.setAccessCount(accessCount++);
-
-        Instant now = Instant.now();
-        shortUrl.addAccessTime(now);
+        shortUrl.addAccessTime(Instant.now());
+        shortUrl.setAccessCount(shortUrl.getAccessCount() + 1);
+        return true;
     }
 
     public ShortUrl getAnalytics(String alias) {

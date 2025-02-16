@@ -14,7 +14,7 @@ public class ShortUrl {
     private String alias;
     private String longURL;
     private Instant expiryTime;
-    private List<Instant> accessTimes = new ArrayList<>();
+    private final List<Instant> accessTimes = new ArrayList<>();
 
     public boolean isExpired() {
         return Instant.now().isAfter(expiryTime);

@@ -3,6 +3,7 @@ package com.urlshortener.urlshortener.controller;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,14 +35,18 @@ public class UrlShortenerController {
     }
 
     @GetMapping("/{alias}")
-    public ResponseEntity<Map<String, Object>> getShortenedUrl(@PathVariable String alias) {
-        String longUrl = urlShortnerServices.longUrl(alias);
+    public ResponseEntity<?> getShortenedUrl(@PathVariable String alias) {
+        String longUrl = urlShortnerServices.getLongUrl(alias);
         if (longUrl == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("The url with alias %s doesn't exists or is expired.", alias));
         }
 
-        urlShortnerServices.setAnalytics(alias);
+        boolean isAnalyticsSet = urlShortnerServices.setAnalytics(alias);
+        if (!isAnalyticsSet) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong.");
+        }
+
         return ResponseEntity.status(302).header("Location", longUrl).build();
     }
 
@@ -59,20 +64,23 @@ public class UrlShortenerController {
     @PostMapping("/shorten")
     public ResponseEntity<Map<String, Object>> shortenUrl(@RequestBody Map<String, Object> request) {
         String longURL = (String) request.getOrDefault("long_url", null);
+        String alias = (String) request.getOrDefault("custom_alias", null);
+        Integer ttlSeconds = (Integer) request.get("ttl_seconds");
+
         if (longURL == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Long URL cannot be null. Please provide `long_url`");
         }
-        String alias = (String) request.getOrDefault("custom_alias", null);
-        Integer ttlSeconds = (Integer) request.get("ttl_seconds");
 
         String shortenedUrl = urlShortnerServices.shortUrl(longURL, alias, ttlSeconds);
+
         Map<String, Object> response = Map.of("shortened_url", shortenedUrl);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{alias}")
-    public ResponseEntity<?> updateShortenedUrl(@PathVariable String alias, @RequestBody Map<String, Object> request) {
+    public ResponseEntity<Map<String, Object>> updateShortenedUrl(@PathVariable String alias,
+            @RequestBody Map<String, Object> request) {
         String newAlias = (String) request.get("custom_alias");
         Integer newTTL = (Integer) request.get("ttl_seconds");
         if (newAlias == null && newTTL == null) {
