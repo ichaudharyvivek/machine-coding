@@ -112,19 +112,10 @@ public class UrlShortenerService {
         return true;
     }
 
-    private String generateAlias() {
-        StringBuilder alias = new StringBuilder();
-        for (int i = 0; i < ALIAS_LENGTH; i++) {
-            alias.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
-        }
-
-        return alias.toString();
-    }
-
     public void cleanupExpiredUrls() {
         Instant now = Instant.now();
         System.out.println("Running cleanup at: " + now);
-        
+
         urlStorage.entrySet().removeIf(item -> {
             boolean expired = item.getValue().isExpired();
             if (expired) {
@@ -133,5 +124,14 @@ public class UrlShortenerService {
 
             return expired;
         });
+    }
+
+    private String generateAlias() {
+        StringBuilder alias = new StringBuilder();
+        for (int i = 0; i < ALIAS_LENGTH; i++) {
+            alias.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+        }
+
+        return alias.toString();
     }
 }
