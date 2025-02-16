@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.urlshortener.urlshortener.model.ShortUrl;
 
 @Service
-public class UrlShortnerServices {
+public class UrlShortenerService {
     private final static String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst0123456789";
     private final static int ALIAS_LENGTH = 7;
 
@@ -38,6 +38,12 @@ public class UrlShortnerServices {
     public String getLongUrl(String alias) {
         ShortUrl shortUrl = urlStorage.getOrDefault(alias, null);
         if (shortUrl == null) {
+            return null;
+        }
+
+        boolean isExpired = shortUrl.isExpired();
+        if (isExpired) {
+            urlStorage.remove(alias);
             return null;
         }
 
@@ -70,19 +76,40 @@ public class UrlShortnerServices {
             return null;
         }
 
+        boolean isExpired = shortUrl.isExpired();
+        if (isExpired) {
+            urlStorage.remove(alias);
+            return null;
+        }
+
+        newTTL = newTTL != null ? newTTL : 120;
+        newAlias = newAlias != null ? newAlias : alias;
+
         ShortUrl newShortUrl = new ShortUrl();
+        newShortUrl.setAlias(newAlias);
         newShortUrl.setLongURL(shortUrl.getLongURL());
+        newShortUrl.setExpiryTime(Instant.now().plusSeconds(newTTL));
 
-        if (newAlias == null) {
-            newShortUrl.setAlias(alias);
-        }
-
-        if (newTTL == null) {
-            newTTL = 120;
-            newShortUrl.setExpiryTime(Instant.now().plusSeconds(newTTL));
-        }
+        urlStorage.remove(alias);
+        urlStorage.put(newAlias, newShortUrl);
 
         return baseUrl + "/" + newShortUrl.getAlias();
+    }
+
+    public boolean deleteAlias(String alias) {
+        ShortUrl shortUrl = urlStorage.getOrDefault(alias, null);
+        if (shortUrl == null) {
+            return false;
+        }
+
+        boolean isExpired = shortUrl.isExpired();
+        if (isExpired) {
+            urlStorage.remove(alias);
+            return false;
+        }
+
+        urlStorage.remove(shortUrl.getAlias());
+        return true;
     }
 
     private String generateAlias() {
@@ -94,13 +121,17 @@ public class UrlShortnerServices {
         return alias.toString();
     }
 
-    public boolean deleteAlias(String alias) {
-        ShortUrl shortUrl = urlStorage.getOrDefault(alias, null);
-        if (shortUrl == null) {
-            return false;
-        }
+    public void cleanupExpiredUrls() {
+        Instant now = Instant.now();
+        System.out.println("Running cleanup at: " + now);
+        
+        urlStorage.entrySet().removeIf(item -> {
+            boolean expired = item.getValue().isExpired();
+            if (expired) {
+                System.out.println("Removing: " + item.getKey());
+            }
 
-        urlStorage.remove(shortUrl.getAlias());
-        return true;
+            return expired;
+        });
     }
 }

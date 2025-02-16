@@ -3,7 +3,6 @@ package com.urlshortener.urlshortener.controller;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.urlshortener.urlshortener.model.ShortUrl;
-import com.urlshortener.urlshortener.service.UrlShortnerServices;
+import com.urlshortener.urlshortener.service.UrlShortenerService;
 
 @RestController
 @RequestMapping("/")
 public class UrlShortenerController {
 
-    private UrlShortnerServices urlShortnerServices;
+    private UrlShortenerService urlShortnerServices;
 
-    public UrlShortenerController(UrlShortnerServices urlShortnerServices) {
+    public UrlShortenerController(UrlShortenerService urlShortnerServices) {
         this.urlShortnerServices = urlShortnerServices;
     }
 
@@ -90,10 +89,10 @@ public class UrlShortenerController {
 
         String updatedShortUrl = urlShortnerServices.updateShortUrl(alias, newAlias, newTTL);
         if (updatedShortUrl == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Alias not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Alias not found or it is expired.");
         }
 
-        Map<String, Object> response = Map.of("success", true, "updated_url", updatedShortUrl);
+        Map<String, Object> response = Map.of("updated_url", updatedShortUrl);
         return ResponseEntity.ok(response);
     }
 

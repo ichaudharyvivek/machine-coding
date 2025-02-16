@@ -2,12 +2,14 @@ package com.urlshortener.urlshortener;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-public class UrlshortenerApplication {
+@EnableScheduling
+public class UrlShortenerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UrlshortenerApplication.class, args);
+		SpringApplication.run(UrlShortenerApplication.class, args);
 	}
 
 }
