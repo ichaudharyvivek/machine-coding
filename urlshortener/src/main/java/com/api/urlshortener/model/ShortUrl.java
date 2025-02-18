@@ -1,4 +1,4 @@
-package com.urlshortener.urlshortener.model;
+package com.api.urlshortener.model;
 
 import java.time.Instant;
 import java.util.ArrayList;

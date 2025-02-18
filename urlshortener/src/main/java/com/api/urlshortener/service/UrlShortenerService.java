@@ -1,4 +1,4 @@
-package com.urlshortener.urlshortener.service;
+package com.api.urlshortener.service;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.urlshortener.urlshortener.model.ShortUrl;
+import com.api.urlshortener.model.ShortUrl;
 
 @Service
 public class UrlShortenerService {
