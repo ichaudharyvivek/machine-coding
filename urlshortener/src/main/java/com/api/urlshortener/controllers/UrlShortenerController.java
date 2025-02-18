@@ -1,4 +1,4 @@
-package com.api.urlshortener.controller;
+package com.api.urlshortener.controllers;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.api.urlshortener.model.ShortUrl;
-import com.api.urlshortener.service.UrlShortenerService;
+import com.api.urlshortener.models.ShortUrl;
+import com.api.urlshortener.services.UrlShortenerService;
 
 @RestController
 @RequestMapping("/")

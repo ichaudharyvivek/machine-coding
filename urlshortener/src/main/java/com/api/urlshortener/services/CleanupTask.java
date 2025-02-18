@@ -1,4 +1,4 @@
-package com.api.urlshortener.service;
+package com.api.urlshortener.services;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
