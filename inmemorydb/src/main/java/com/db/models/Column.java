@@ -1,15 +1,25 @@
 package com.db.models;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class Column {
-    private String columnName;
-    private Type columnType;
-    private Boolean isPrimary = false;
+    private String name;
+    private Type type;
+    private Boolean isPrimary;
 
-    enum Type {
-        INT, STRING, BOOLEAN
+    public enum Type {
+        INTEGER, STRING, BOOLEAN
+    }
+
+    public Column(String name, Type type) {
+        this(name, type, false);
+    }
+
+    public Column(String name, Type type, Boolean isPrimary) {
+        this.name = name;
+        this.type = type;
+        this.isPrimary = isPrimary;
     }
 
 }

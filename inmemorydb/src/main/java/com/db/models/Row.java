@@ -2,10 +2,13 @@ package com.db.models;
 
 import java.util.Map;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class Row {
-    private Integer rowId;
-    private Map<Column, Object> columnData;
+    private final Map<String, Object> rowData;
+
+    public Row(Map<String, Object> rowData) {
+        this.rowData = rowData;
+    }
 }
