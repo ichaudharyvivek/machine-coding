@@ -7,6 +7,8 @@ Multiple publishers can post on multiple topics, and subscribers can listed to m
 
 
 Usage in main
+Note: In this we fulfilled
+    - Multiple message queues (topics) where pub can publish and sub can listen
 ```java
 public class Main {
     public static void main(String[] args) throws InterruptedException {

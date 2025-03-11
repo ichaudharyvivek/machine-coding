@@ -3,7 +3,10 @@
 In this version, we made a very simple pub/sub using threads.  
 In v2, we will use Java thread safe blocking queue to make pub/sub and futher inhancements.  
 
-Usage in main
+Usage in main  
+Note: In this we fulfilled
+    - Multiple threads for pub and sub
+    - Not having thread means the publisher would be blocked until all subscribers finish processing the message
 ```java
 
 

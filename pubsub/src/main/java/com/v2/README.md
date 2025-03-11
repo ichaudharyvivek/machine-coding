@@ -12,6 +12,8 @@ Note:
     
 
 Usage in main
+Note: In this we fulfilled
+    - Graceful shutdown of pub/sub
 ```java
 public class Main {
     public static void main(String[] args) throws InterruptedException {
